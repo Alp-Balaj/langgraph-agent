@@ -7,12 +7,14 @@ import argparse
 import os
 import uuid
 
+from dotenv import load_dotenv
 from langgraph.types import Command
 
 from .graph import build_graph, claude
 
 
 def main() -> None:
+    load_dotenv()  # pick up ANTHROPIC_API_KEY etc. from .env; real env vars win
     parser = argparse.ArgumentParser(description="Plan, approve, write and self-edit a short brief.")
     parser.add_argument("topic", help="what the brief is about")
     parser.add_argument("--model", default=os.environ.get("BRIEF_MODEL", "claude-opus-5-5"))
